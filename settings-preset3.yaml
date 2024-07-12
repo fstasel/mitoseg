@@ -1,0 +1,91 @@
+---
+    # General settings
+    NUM_CORES: 1
+    THREAD_STACK_SIZE: 32
+    
+    # ----- [PHASE 1 PARAMETERS] -----
+
+    ## Visualization parameters
+    VISUAL_LE_SSIZE: 8
+    
+    ## Preprocessing parameters
+    TFACTOR: 2.0
+    AUTOLEVELSCUT: 0.005
+    BSMOOTH_GRAY: 0.2
+    
+    ## Common curve fit parameters
+    FC_MAXCURV: 1.0
+    FC_MAXITER: 200
+    FC_STEP: 1.0
+    FC_XYRANGE: 2
+    FC_XYSTEP: 1
+    FC_HRANGE: 2
+    FC_HSTEP: 1
+    FC_TOL: 0.01
+    LE_BINS: 4
+
+    ## Low frequency curve fit parameters
+    FCS_INIT_THRESH_LO: 0.4
+    
+    ## High frequency curve fit parameters
+    FCS_INIT_THRESH_HI: 0.4
+
+    ## Low frequency curves coverage distance
+    CURV_HILO_COV_TH: 0.7
+
+    ## Detection parameters
+    DT_BOUNDARY_T: 20.0
+    DT_REGION_T: 0.1
+
+    DT_GAP_T: 15.0
+    DT_GAPTOTAL_TD: 600.0
+    DT_GAPMAX_TD: 600.0
+    DT_GAPTOTALRATIO_T: 0.4
+    DT_GAPBORDERRATIO_T: 0.4
+    DT_GAPBORDERCOUNT_T: 1
+
+    DT_CURVG_T: 15.0
+    DT_CURVL_T: 0.6
+    DT_CURVL_SEG: 0.25
+    DT_SIGN_SMOOTH: 0.05
+    DT_SIGN_RATIO: 4.0
+    DT_SIGN_MAXNUMCRIT_T: 4
+    DT_MINMINOR_RATIO_T: 0.2
+    DT_REPORT: false
+    DT25D_MED_RANGE: 5
+
+    # ----- [PHASE 2 PARAMETERS] -----
+    
+    ## Common snake parameters
+    SN_N: 100
+    SN_GAUSSIAN: 1.0
+    
+    ## 2.5D snake parameters
+    SN25D_W_TENSION: 1.0
+    SN25D_W_CURVATURE: 200.0
+    SN25D_W_ZTENSION: 5.0
+    SN25D_W_ZCURVATURE: 5.0
+    SN25D_W_ECURVE: 1.0
+    SN25D_W_EINF_MIN: 0.5
+    SN25D_W_EINF_MAX: 3.0
+    SN25D_W_EINF_STEP: 0.5
+    SN25D_T: 500
+    SN25D_K: 1.0
+    SN25D_INITR: 10.0
+    SN25D_MAXITER: 400000
+    SN25D_SHORTTERM_CONV_ITER: 10000
+    SN25D_SHORTTERM_CONV: 2.0
+    SN25D_LONGTERM_CONV_ITER: 40000
+    SN25D_LONGTERM_CONV: 10.0
+    SN25D_INF_CONV: 0.95
+    SN25D_ALPHA: 0.0
+
+    # ----- [PHASE 3 PARAMETERS] -----
+    
+    POLY_MERGE: 0.3
+
+    ## Visualizer Parameters
+    MAXIMAGES: 150
+    MAXBUFFER: 150
+    WINDOW_WIDTH: 720
+    WINDOW_HEIGHT: 720

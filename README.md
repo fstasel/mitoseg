@@ -1,4 +1,4 @@
-# mitoseg - Mitochondria Segmentation Tool
+# MitoSeg - Mitochondria Segmentation Tool
 
 Based on the paper:
 
@@ -71,3 +71,9 @@ You may replace the `-j4` argument with the actual number of CPU cores available
 
       ./mitoseg -settingsFile settings.yaml -dst outputs -zrange 20 80 -psize 2.1 slice00%d.bmp
 
+## Running MitoSeg as a Docker Application
+MitoSeg can also be used within a [Docker](https://www.docker.com/) environment, which eliminates the need to prepare the building environment on your computer, and allows MitoSeg to run on various operating systems easily. A sample Dockerfile is provided under the `docker` directory, which can be used for building a Docker image by executing the following command within the `docker` directory:
+
+    docker build -t mitoseg .
+
+After the image is built, it can be run by executing the provided `docker-mitoseg.sh` (for Linux/Mac) or `docker-mitoseg.cmd` (for Windows) scripts. These scripts include instructions and guidelines, and can be modified according to specific needs.

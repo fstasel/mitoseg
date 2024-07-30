@@ -16,7 +16,7 @@ MitoSeg uses the following libraries:
 
 To compile and use MitoSeg, development files for OpenCV4, Boost, and yaml-cpp must be installed. For GNU/Linux distributions based on Debian (e.g., Ubuntu):
 
-    apt install libopencv-dev libboost1.74-dev libyaml-cpp-dev
+    apt install libopencv-dev libboost-dev libyaml-cpp-dev
 
 Please refer to respective user guides for other GNU/Linux distributions or operating systems.
 
@@ -25,9 +25,7 @@ MitoSeg can be compiled with:
     mkdir build
     cd build
     cmake -DCMAKE_BUILD_TYPE=Release ..
-    make -j4
-
-You may replace the `-j4` argument with the actual number of CPU cores available for speeding up the process.
+    make -j $(nproc)
 
 ## Usage
 

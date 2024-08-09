@@ -9,6 +9,7 @@
 #define YAMLTEST_H
 
 #include <string>
+using namespace std;
 
 #define SN_N 100
 #define SN25D_T 500
@@ -17,7 +18,7 @@ namespace mitoseg_settings {
     // General settings
     extern int numCores;
     extern int THREAD_STACK_SIZE;
-    extern std::string SETTINGS_PATH;
+    extern string SETTINGS_PATH;
 
     // Phase 1 - Visualization parameters
     extern int VISUAL_LE_SSIZE;

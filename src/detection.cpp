@@ -25,8 +25,7 @@ template <typename T> T quick_select(T arr[], int n) {
             return arr[median];
         }
 
-        /* Find median of low, middle and high items; swap into position
-         * low */
+        /* Find median of low, middle and high items; swap into position low */
         middle = (low + high) / 2;
         if (arr[middle] > arr[high])
             swap(arr[middle], arr[high]);
@@ -38,8 +37,7 @@ template <typename T> T quick_select(T arr[], int n) {
         /* Swap low item (now in position middle) into position (low+1) */
         swap(arr[middle], arr[low + 1]);
 
-        /* Nibble from each end towards middle, swapping items when stuck
-         */
+        /* Nibble from each end towards middle, swapping items when stuck */
         ll = low + 1;
         hh = high;
         while (true) {

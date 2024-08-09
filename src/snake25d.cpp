@@ -928,14 +928,13 @@ void retrieveAllSnakes25d(dataPacket &dp, vector<cv::Point> &initPts,
 }
 
 void saveSnakeList(snake25dList &sarray, int tag_start_z, int tag_end_z) {
-    ofstream f;
     string outputfn;
     outputfn = (boost::format("%s%s%d_%s.dat") % DESTPATH % "snakes25d_" %
                 (tag_end_z - tag_start_z + 1) % FNAME)
                    .str();
     outputfn = (boost::format(outputfn) % tag_start_z).str();
     cout << "Saving: " << outputfn << endl;
-    f.open(outputfn, ios::binary);
+    ofstream f(outputfn, ios::binary);
 
     uint n = sarray.size();
     f.write(reinterpret_cast<char *>(&n), sizeof(int));
@@ -976,14 +975,13 @@ void saveSnakeList(snake25dList &sarray, int tag_start_z, int tag_end_z) {
 snake25dList loadSnakeArray(int tag_start_z, int tag_end_z) {
     int n;
     vector<snake25d> sarray;
-    ifstream f;
     string inputfn;
     inputfn = (boost::format("%s%s%d_%s.dat") % DESTPATH % "snakes25d_" %
                (tag_end_z - tag_start_z + 1) % FNAME)
                   .str();
     inputfn = (boost::format(inputfn) % tag_start_z).str();
     cout << "Loading: " << inputfn << endl;
-    f.open(inputfn, ios::binary);
+    ifstream f(inputfn, ios::binary);
     if (f.is_open()) {
         if (f.read(reinterpret_cast<char *>(&n), sizeof(int))) {
             if (n > 0) {
@@ -1034,14 +1032,13 @@ snake25dList loadSnakeArray(int tag_start_z, int tag_end_z) {
 }
 
 void savePoints(vector<cv::Point> &pts, int tag_start_z, int tag_end_z) {
-    ofstream f;
     string outputfn;
     outputfn = (boost::format("%s%s%d_%s.dat") % DESTPATH % "initPts_" %
                 (tag_end_z - tag_start_z + 1) % FNAME)
                    .str();
     outputfn = (boost::format(outputfn) % tag_start_z).str();
     cout << "Saving: " << outputfn << endl;
-    f.open(outputfn, ios::binary);
+    ofstream f(outputfn, ios::binary);
 
     uint n = pts.size();
     f.write(reinterpret_cast<char *>(&n), sizeof(int));
@@ -1053,14 +1050,13 @@ void savePoints(vector<cv::Point> &pts, int tag_start_z, int tag_end_z) {
 vector<cv::Point> loadPoints(int tag_start_z, int tag_end_z) {
     vector<cv::Point> pts;
     int n;
-    ifstream f;
     string inputfn;
     inputfn = (boost::format("%s%s%d_%s.dat") % DESTPATH % "initPts_" %
                (tag_end_z - tag_start_z + 1) % FNAME)
                   .str();
     inputfn = (boost::format(inputfn) % tag_start_z).str();
     cout << "Loading: " << inputfn << endl;
-    f.open(inputfn, ios::binary);
+    ifstream f(inputfn, ios::binary);
     if (f.is_open()) {
         f.read(reinterpret_cast<char *>(&n), sizeof(int));
         if (n > 0) {

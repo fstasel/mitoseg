@@ -274,8 +274,7 @@ int fitCurve(vector<localEnergy> &e, const int w, const int h, curve &c,
         n = cur;
 
         if (proc == 0) {
-            // Find best neighbor for (x1,y1)
-            // for all neighboring y1
+            // Find best neighbor for (x1, y1) for all neighboring y1
             for (n.y1 = cur.y1 - FC_XYRANGE; n.y1 <= cur.y1 + FC_XYRANGE;
                  n.y1 += FC_XYSTEP) {
                 // if inside range
@@ -293,16 +292,11 @@ int fitCurve(vector<localEnergy> &e, const int w, const int h, curve &c,
                             // If not masked
                             i = n.y1 * w + n.x1;
                             if (!(mask && mask[i])) {
-                                // for all
-                                // neighboring h
+                                // for all neighboring h
                                 for (n.h = cur.h - FC_HRANGE;
                                      n.h <= cur.h + FC_HRANGE;
                                      n.h += FC_HSTEP) {
-                                    // If
-                                    // curvature
-                                    // condition
-                                    // is
-                                    // satisfied
+                                    // If curvature condition is satisfied
                                     if (n.h * n.h < maxcurv * (dx + dy)) {
                                         // Calculate score
                                         calcCurveParams(e, w, h, n, FC_STEP);
@@ -317,8 +311,7 @@ int fitCurve(vector<localEnergy> &e, const int w, const int h, curve &c,
                 }
             }
         } else if (proc == 1) {
-            // Find best neighbor for (x2,y2)
-            // for all neighboring y2
+            // Find best neighbor for (x2, y2) for all neighboring y2
             for (n.y2 = cur.y2 - FC_XYRANGE; n.y2 <= cur.y2 + FC_XYRANGE;
                  n.y2 += FC_XYSTEP) {
                 // if inside range
@@ -337,16 +330,11 @@ int fitCurve(vector<localEnergy> &e, const int w, const int h, curve &c,
                             // If not masked
                             i = n.y1 * w + n.x1;
                             if (!(mask && mask[i])) {
-                                // for all
-                                // neighboring h
+                                // for all neighboring h
                                 for (n.h = cur.h - FC_HRANGE;
                                      n.h <= cur.h + FC_HRANGE;
                                      n.h += FC_HSTEP) {
-                                    // If
-                                    // curvature
-                                    // condition
-                                    // is
-                                    // satisfied
+                                    // If curvature condition is satisfied
                                     if (n.h * n.h < maxcurv * (dx + dy)) {
                                         // Calculate score
                                         calcCurveParams(e, w, h, n, FC_STEP);
@@ -504,7 +492,7 @@ void visualizeCurves(cv::Mat &bckgnd, curveList &clist, const int ssize,
                      cv::Mat &visual, const float FLC_THRESH,
                      const float FLC_AVGTHRESH) {
     cv::Scalar cl;
-    std::vector<cv::Mat> channels(3, bckgnd);
+    vector<cv::Mat> channels(3, bckgnd);
     cv::merge(channels, visual);
 
     for (uint i = 0; i < clist.size(); i++) {
@@ -546,7 +534,7 @@ void visualizeHiLoCurves(curveList &clist_lo, const int w_lo, const int h_lo,
     cv::Mat memtemp =
         drawBinaryCurves(clist_lo, (int)CURV_HILO_COV, w_lo, h_lo);
 
-    std::vector<cv::Mat> channels(3, bckgnd);
+    vector<cv::Mat> channels(3, bckgnd);
     cv::merge(channels, visual);
 
     double scale = (double)LE_SSIZE_LO / LE_SSIZE_HI;
@@ -675,13 +663,12 @@ curvePoints<double> getCurvePoints(const curve &c, const double S) {
 
 void saveLocalEnergyStructure(int s, const string tag, vector<localEnergy> &e,
                               int w, int h) {
-    ofstream f;
-    string outputfn;
-    outputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
-    outputfn = (boost::format(outputfn) % s).str();
     if (!e.empty()) {
+        string outputfn;
+        outputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
+        outputfn = (boost::format(outputfn) % s).str();
         cout << "Saving: " << outputfn << endl;
-        f.open(outputfn, ios::binary);
+        ofstream f(outputfn, ios::binary);
         f.write(reinterpret_cast<char *>(&w), sizeof(int));
         f.write(reinterpret_cast<char *>(&h), sizeof(int));
         f.write(reinterpret_cast<char *>(e.data()),
@@ -692,13 +679,12 @@ void saveLocalEnergyStructure(int s, const string tag, vector<localEnergy> &e,
 
 void loadLocalEnergyStructure(int s, const string tag, vector<localEnergy> &e,
                               int *w, int *h) {
-    ifstream f;
     string inputfn;
     inputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
     inputfn = (boost::format(inputfn) % s).str();
     e.clear();
     cout << "Loading: " << inputfn << endl;
-    f.open(inputfn, ios::binary);
+    ifstream f(inputfn, ios::binary);
     f.read(reinterpret_cast<char *>(w), sizeof(int));
     f.read(reinterpret_cast<char *>(h), sizeof(int));
     e.resize((*w) * (*h));
@@ -709,14 +695,13 @@ void loadLocalEnergyStructure(int s, const string tag, vector<localEnergy> &e,
 }
 
 void saveCurveStructure(int s, const string tag, curveList &c) {
-    ofstream f;
-    string outputfn;
-    uint numRecords = c.size();
-    outputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
-    outputfn = (boost::format(outputfn) % s).str();
     if (!c.empty()) {
+        string outputfn;
+        outputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
+        outputfn = (boost::format(outputfn) % s).str();
         cout << "Saving: " << outputfn << endl;
-        f.open(outputfn, std::ios::binary);
+        ofstream f(outputfn, ios::binary);
+        uint numRecords = c.size();
         f.write(reinterpret_cast<char *>(&numRecords), sizeof(uint));
         f.write(reinterpret_cast<char *>(c.data()), sizeof(curve) * numRecords);
         f.close();
@@ -725,12 +710,11 @@ void saveCurveStructure(int s, const string tag, curveList &c) {
 
 curveList loadCurveStructure(int s, const string tag) {
     int numRecords;
-    ifstream f;
     string inputfn;
     inputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
     inputfn = (boost::format(inputfn) % s).str();
     cout << "Loading: " << inputfn << endl;
-    f.open(inputfn, ios::binary);
+    ifstream f(inputfn, ios::binary);
     f.read(reinterpret_cast<char *>(&numRecords), sizeof(int));
     curveList c(numRecords);
     if (!f.read(reinterpret_cast<char *>(c.data()), sizeof(curve) * numRecords))

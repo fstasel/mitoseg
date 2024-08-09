@@ -103,7 +103,7 @@ void mainFunctionPhase1(int s) {
 
     // Visualize
     cv::normalize(resmpImage, visualResmpImage, 0, 255, cv::NORM_MINMAX);
-    std::vector<cv::Mat> channels(3, visualResmpImage);
+    vector<cv::Mat> channels(3, visualResmpImage);
     cv::merge(channels, visualResmpImage_color);
     cv::normalize(bilateral, visualBilateral, 255, 0, cv::NORM_MINMAX);
     cv::normalize(smoothed, visualSmoothed, 255, 0, cv::NORM_MINMAX);

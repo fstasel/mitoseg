@@ -51,7 +51,7 @@ void saveImageDat(int s, const string &tag, const cv::Mat &im) {
     outputfn = (boost::format(outputfn) % s).str();
     if (!im.empty()) {
         cout << "Saving: " << outputfn << endl;
-        std::ofstream outfile(outputfn, std::ios::binary);
+        ofstream outfile(outputfn, ios::binary);
         if (outfile.is_open()) {
             outfile.write(reinterpret_cast<const char *>(&im.dims),
                           sizeof(int));
@@ -68,12 +68,12 @@ void saveImageDat(int s, const string &tag, const cv::Mat &im) {
 
 cv::Mat loadImageDat(int s, const string &tag) {
     int dims, sizes[2];
-    string outputfn;
-    outputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
-    outputfn = (boost::format(outputfn) % s).str();
+    string inputfn;
+    inputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
+    inputfn = (boost::format(inputfn) % s).str();
 
-    cout << "Loading: " << outputfn << endl;
-    std::ifstream infile(outputfn, std::ios::binary);
+    cout << "Loading: " << inputfn << endl;
+    ifstream infile(inputfn, ios::binary);
     infile.read(reinterpret_cast<char *>(&dims), sizeof(int));
     infile.read(reinterpret_cast<char *>(&sizes[0]), sizeof(int));
     infile.read(reinterpret_cast<char *>(&sizes[1]), sizeof(int));

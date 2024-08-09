@@ -38,7 +38,7 @@ template <typename T> struct coord {
     T x;
     T y;
 };
-template <typename T> using curvePoints = std::vector<coord<T>>;
+template <typename T> using curvePoints = vector<coord<T>>;
 
 struct curveStack {
     vector<curveList> cstack;

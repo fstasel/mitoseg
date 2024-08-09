@@ -22,7 +22,6 @@ float imod_endian_reverse(float x) {
 void savePolyArrayAsIMOD(vector<poly25d> &p, int x_size, int y_size, int z_size,
                          double xy_scale, double z_scale, int x_shift,
                          int y_shift) {
-    ofstream f;
     int id;
     uint i, j, k;
     imod_model model;
@@ -35,7 +34,7 @@ void savePolyArrayAsIMOD(vector<poly25d> &p, int x_size, int y_size, int z_size,
     outputfn = (boost::format("%s%s%s.mod") % DESTPATH % "imod_" % FNAME).str();
     outputfn = (boost::format(outputfn) % SLICE_START).str();
     cout << "Saving: " << outputfn << endl;
-    f.open(outputfn, ios::binary);
+    ofstream f(outputfn, ios::binary);
 
     // Write header
     id = IMOD_VALUE(IMOD_FILE_ID);

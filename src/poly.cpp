@@ -367,7 +367,6 @@ void savePolyArrayAsPLY(vector<poly25d> &p) {
     double x, y, z;
     uint n = p.size();
     uint i, j, k, n_vertex = 0, cv;
-    ofstream f;
     vector<int3> faces;
     uint n_faces;
 
@@ -392,7 +391,7 @@ void savePolyArrayAsPLY(vector<poly25d> &p) {
     outputfn = (boost::format("%s%s%s.ply") % DESTPATH % "poly_" % FNAME).str();
     outputfn = (boost::format(outputfn) % SLICE_START).str();
     cout << "Saving: " << outputfn << endl;
-    f.open(outputfn);
+    ofstream f(outputfn, ios::binary);
 
     f << "ply" << endl
       << "format ascii 1.0" << endl

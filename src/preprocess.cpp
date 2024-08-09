@@ -391,13 +391,12 @@ void fastBilateralFilter(cv::Mat &input, cv::Mat &output, int spatialWindow,
 
 void saveRidgeStructure(int s, const string tag, vector<ridge> &r) {
     if (!r.empty()) {
-        ofstream f;
         string outputfn;
         outputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
         outputfn = (boost::format(outputfn) % s).str();
         int numRecords = r.size();
         cout << "Saving: " << outputfn << endl;
-        f.open(outputfn, std::ios::binary);
+        ofstream f(outputfn, ios::binary);
         f.write(reinterpret_cast<char *>(&numRecords), sizeof(int));
         f.write(reinterpret_cast<char *>(r.data()), sizeof(ridge) * numRecords);
         f.close();
@@ -405,14 +404,12 @@ void saveRidgeStructure(int s, const string tag, vector<ridge> &r) {
 }
 
 vector<ridge> loadRidgeStructure(int s, const string &tag) {
-    int numRecords;
-    ifstream f;
     string inputfn;
     inputfn = (boost::format("%s%s%s.dat") % DESTPATH % tag % FNAME).str();
     inputfn = (boost::format(inputfn) % s).str();
-
     cout << "Loading: " << inputfn << endl;
-    f.open(inputfn, ios::binary);
+    ifstream f(inputfn, ios::binary);
+    int numRecords;
     f.read(reinterpret_cast<char *>(&numRecords), sizeof(int));
     vector<ridge> r(numRecords);
     if (!f.read(reinterpret_cast<char *>(r.data()), sizeof(ridge) * numRecords))

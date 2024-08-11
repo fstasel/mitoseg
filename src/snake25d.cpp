@@ -480,18 +480,8 @@ void compUpdateVectors(snake25d &s, double uv[][SN_N][2]) {
         for (j = 0; j < SN_N; j++) {
             uv[t][j][0] *= -SN25D_K * gamma;
             uv[t][j][1] *= -SN25D_K * gamma;
-            m = cv::sqrt(uv[t][j][0] * uv[t][j][0] + uv[t][j][1] * uv[t][j][1]);
-            m = clamp(m, 0.0, 1.0);
-            double ac = alphaCoefficient(m);
-            uv[t][j][0] *= (ac / m);
-            uv[t][j][1] *= (ac / m);
         }
     }
-}
-
-double alphaCoefficient(double x) {
-    return cv::pow(1.0 - cv::pow(1.0 - x, 1.0 / (1.0 - SN25D_ALPHA)),
-                   1.0 - SN25D_ALPHA);
 }
 
 void updateSnake(snake25d &s, double uv[][SN_N][2], const int w_1,

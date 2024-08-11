@@ -5,8 +5,8 @@
  *  SPDX-License-Identifier: GPL-3.0-or-later
  */
 
-#ifndef YAMLTEST_H
-#define YAMLTEST_H
+#ifndef SETTINGS_PARSER_H_
+#define SETTINGS_PARSER_H_
 
 #include <string>
 using namespace std;
@@ -93,7 +93,7 @@ namespace mitoseg_settings {
     extern int DT25D_MED_RANGE;
 
     // Phase 2 - Common snake parameters
-    // extern int SN_N;
+    extern int sn_n;
     extern double SN_GAUSSIAN;
     extern double SN_MAXAREA;
     extern double SN_MINAREA;
@@ -107,7 +107,6 @@ namespace mitoseg_settings {
     extern double SN25D_W_EINF_MIN;
     extern double SN25D_W_EINF_MAX;
     extern double SN25D_W_EINF_STEP;
-    // extern int SN25D_T;
     extern int sn25d_t;
     extern double SN25D_K;
     extern double SN25D_INITR;

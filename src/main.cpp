@@ -92,6 +92,31 @@ int main(int argc, char **argv) {
 
     int c = 1;
     while (c < argc) {
+        if (strcmp(argv[c], "-settingsFile") == 0) {
+            if (c + 1 < argc) {
+                SETTINGS_PATH = argv[++c];
+                settingsSet = true;
+            } else {
+                cerr << "Error: Insufficient parameter for "
+                        "-settingsFile"
+                     << endl
+                     << "Use mitoseg with no parameters for help" << endl
+                     << endl;
+                return 1;
+            }
+        }
+        c++;
+    }
+
+    if (!settingsSet)
+        SETTINGS_PATH = "settings.yaml";
+    if (loadSettings())
+        cout << "Settings: loaded from " << SETTINGS_PATH << endl;
+    else
+        cout << "Settings: using defaults" << endl;
+
+    c = 1;
+    while (c < argc) {
         if (strcmp(argv[c], "-zrange") == 0) {
             if (c + 2 < argc) {
                 SLICE_START = atoi(argv[++c]);
@@ -261,17 +286,8 @@ int main(int argc, char **argv) {
                 return 1;
             }
         } else if (strcmp(argv[c], "-settingsFile") == 0) {
-            if (c + 1 < argc) {
-                SETTINGS_PATH = argv[++c];
-                settingsSet = true;
-            } else {
-                cerr << "Error: Insufficient parameter for "
-                        "-settingsFile"
-                     << endl
-                     << "Use mitoseg with no parameters for help" << endl
-                     << endl;
-                return 1;
-            }
+            // settingsFile is already handled above
+            c++;
         } else if (argv[c][0] == '-') {
             cerr << "Error: Unknown option " << argv[c] << endl;
             cerr << "Use mitoseg with no parameter for help" << endl << endl;
@@ -282,13 +298,6 @@ int main(int argc, char **argv) {
         }
         c++;
     }
-
-    if (!settingsSet)
-        SETTINGS_PATH = "settings.yaml";
-    if (loadSettings())
-        cout << "Settings: loaded from " << SETTINGS_PATH << endl;
-    else
-        cout << "Settings: using defaults" << endl;
 
     if (!(zrangeSet && psizeSet && fnameSet)) {
         cout << "The options -zrange, -psize and <filename pattern> are "

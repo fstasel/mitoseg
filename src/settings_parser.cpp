@@ -93,7 +93,7 @@ namespace mitoseg_settings {
     int DT25D_MED_RANGE = 5;
 
     // Phase 2 - Common snake parameters
-    // int SN_N = 100;
+    int sn_n = 100;
     double SN_GAUSSIAN = 1.0;
     double SN_MAXAREA = DT_MAXAREA;
     double SN_MINAREA = DT_MINAREA;
@@ -107,7 +107,6 @@ namespace mitoseg_settings {
     double SN25D_W_EINF_MIN = 0.5;
     double SN25D_W_EINF_MAX = 3.0;
     double SN25D_W_EINF_STEP = 0.5;
-    // int SN25D_T = 500;
     int sn25d_t = 20;
     double SN25D_K = 1.0;
     double SN25D_INITR = 10.0;
@@ -239,8 +238,8 @@ namespace mitoseg_settings {
             DT_REPORT = settings["DT_REPORT"].as<bool>();
         if (settings["DT25D_MED_RANGE"])
             DT25D_MED_RANGE = settings["DT25D_MED_RANGE"].as<int>();
-        // if (settings["SN_N"])
-        //     SN_N = settings["SN_N"].as<int>();
+        if (settings["SN_N"])
+            sn_n = settings["SN_N"].as<int>();
         if (settings["SN_GAUSSIAN"])
             SN_GAUSSIAN = settings["SN_GAUSSIAN"].as<double>();
         SN_MAXAREA = DT_MAXAREA;
@@ -261,8 +260,8 @@ namespace mitoseg_settings {
             SN25D_W_EINF_MAX = settings["SN25D_W_EINF_MAX"].as<double>();
         if (settings["SN25D_W_EINF_STEP"])
             SN25D_W_EINF_STEP = settings["SN25D_W_EINF_STEP"].as<double>();
-        // if (settings["SN25D_T"])
-        //     SN25D_T = settings["SN25D_T"].as<int>();
+        if (settings["SN25D_T"])
+            sn25d_t = settings["SN25D_T"].as<int>();
         if (settings["SN25D_K"])
             SN25D_K = settings["SN25D_K"].as<double>();
         if (settings["SN25D_INITR"])

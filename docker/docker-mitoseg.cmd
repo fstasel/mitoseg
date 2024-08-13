@@ -9,9 +9,9 @@ REM 5. Specify this directory in line 16 below as:
 REM
 REM    -v C:\path\to\your\data\directory:/app/data/
 REM
-REM Feel free to specify other arguments (psize, zrange, phase, etc.)
+REM Feel free to specify other arguments (zrange, psize, phase, etc.)
 REM in line 17 below:
 
 docker run --rm ^
     -v C:\Users\mitoseg\Desktop\data:/app/data ^
-    mitoseg -psize 2.0 -zrange 30 100 dataset_slice%04d.tif
+    mitoseg --zrange 30 100 --psize 2.0 dataset_slice%04d.tif

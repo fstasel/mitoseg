@@ -2,7 +2,7 @@ FROM ubuntu:24.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
-    apt-get install -y git ca-certificates build-essential cmake libopencv-dev libboost-dev libyaml-cpp-dev --no-install-recommends && \
+    apt-get install -y git ca-certificates build-essential cmake libopencv-dev libboost-dev libboost-program-options-dev libyaml-cpp-dev --no-install-recommends && \
     apt-get clean
 
 WORKDIR /app

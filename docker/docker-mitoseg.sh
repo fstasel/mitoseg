@@ -9,9 +9,9 @@
 #
 #    -v /path/to/your/data/directory:/app/data/ \
 #
-# Feel free to specify other arguments (psize, zrange, phase, etc.)
+# Feel free to specify other arguments (zrange, psize, phase, etc.)
 # in line 17 below:
 
 docker run --rm \
 	-v /home/mitoseg/Desktop/data:/app/data/ \
-	mitoseg -psize 2.0 -zrange 30 100 dataset_slice%04d.tif
+	mitoseg --zrange 30 100 --psize 2.0 dataset_slice%04d.tif

@@ -46,7 +46,7 @@ int main(int argc, char **argv) {
         ("valid", po::value<double>(), "validity threshold between 0 - 1")
         ("thick", po::value<string>(), "snake z-thickness")
         ("cores", po::value<int>(), "# of cpu cores to utilize")
-        ("settingsFile", po::value<string>(), "path of settings file")
+        ("settings-file", po::value<string>(), "path of settings file")
         ("pattern", po::value<string>(), "filename pattern");
 
     po::positional_options_description p;
@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
             << endl
             << "  --thick THICKNESS\tsnake z-thickness (default: 20)" << endl
             << "  --cores CORES\t\t# of cpu cores to utilize" << endl
-            << "  --settingsFile PATH\tpath of custom settings file" << endl
+            << "  --settings-file PATH\tpath of custom settings file" << endl
             << endl
             << "The options --zrange, --psize and <filename pattern> are "
                "mandatory."
@@ -117,8 +117,8 @@ int main(int argc, char **argv) {
         return 0;
     }
 
-    if (vm.count("settingsFile"))
-        SETTINGS_PATH = vm["settingsFile"].as<string>();
+    if (vm.count("settings-file"))
+        SETTINGS_PATH = vm["settings-file"].as<string>();
     else
         SETTINGS_PATH = "settings.yaml";
     settingsSet = loadSettings();

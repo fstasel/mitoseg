@@ -1,6 +1,6 @@
 @echo off
 
-REM Do not specify src, dst, and settingsFile arguments manually, instead:
+REM Do not specify src, dst, and settings-file arguments manually, instead:
 REM 1. Create a directory (e.g. Desktop\data)
 REM 2. Put input slice images into "data\src"
 REM 3. Create an empty output directory "data\output"

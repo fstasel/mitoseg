@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Do not specify src, dst, and settingsFile arguments manually, instead:
+# Do not specify src, dst, and settings-file arguments manually, instead:
 # 1. Create a directory (e.g. Desktop/data)
 # 2. Put input slice images into "data/src"
 # 3. Create an empty output directory "data/output"

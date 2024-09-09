@@ -1,6 +1,6 @@
 # MitoSeg - Mitochondria Segmentation Tool
 
-Based on the paper:
+MitoSeg is a tool developed for mitochondria detection and segmentation based on the algorithm proposed in:
 
 > Tasel, S.F., Mumcuoglu, E.U., Hassanpour, R.Z. and Perkins, G., 2016. A validated active contour method driven by parabolic arc model for detection and segmentation of mitochondria. Journal of structural biology, 194(3), pp.253-271.
 

@@ -130,10 +130,10 @@ bool checkColumn(const cv::Mat &input, const int x, const double &dev) {
     if (x < input.cols - 1)
         xp++;
     for (int y = 0; y < input.rows; y++)
-        d += cv::norm(0.5 * input.at<cv::Vec3b>(y, x) -
-                      0.25 * input.at<cv::Vec3b>(y, xp) -
-                      0.25 * input.at<cv::Vec3b>(y, xm));
-    d /= input.cols;
+        d += ~(0.5 * input.at<cv::Vec3b>(y, x) -
+               0.25 * input.at<cv::Vec3b>(y, xp) -
+               0.25 * input.at<cv::Vec3b>(y, xm));
+    d /= input.rows;
     return 6.0 * d < dev;
 }
 

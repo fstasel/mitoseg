@@ -83,6 +83,7 @@
     # ----- [PHASE 3 PARAMETERS] -----
     
     POLY_MERGE: 0.3
+    POLY_VALIDITY: 0.75
 
     ## Visualizer Parameters
     MAXIMAGES: 150

@@ -11,6 +11,5 @@ WORKDIR /app/build
 RUN cmake -DCMAKE_BUILD_TYPE=Release ..
 RUN make -j $(nproc)
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["entrypoint.sh"]
+RUN chmod +x /app/docker/entrypoint.sh
+ENTRYPOINT ["/app/docker/entrypoint.sh"]

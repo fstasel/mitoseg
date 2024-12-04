@@ -13,5 +13,5 @@ REM Feel free to specify other arguments (zrange, psize, phase, etc.)
 REM in line 17 below:
 
 docker run --rm ^
-    -v C:\Users\mitoseg\Desktop\data:/app/data ^
-    mitoseg --zrange 30 100 --psize 2.0 dataset_slice%04d.tif
+    -v C:\Users\username\Desktop\data:/app/data ^
+    mitoseg --zrange 35 74 --psize 2.2 gap18_sub%%04d.png

@@ -57,7 +57,7 @@ MitoSeg can be compiled with:
 | `--thick <z-thickness>` | Specifies the snake z-thickness. The given value must be between 5 and 500 (default: 20). Can be set to `full` to use the whole z-range specified by the `--zrange` argument. Snake thickness affects the segmentation accuracy; thicker snakes provide continuous smooth segmentation along the z-range, but can also produce more false negatives. |
 | `--phase <phase #>` | Specifies a specific phase to be executed (1, 2, or 3). The `--valid` and `--thick` arguments affect the 2nd and 3rd phases, respectively. Hence, if the same portion of the dataset is to be segmented by changing only these arguments, the `--phase` argument can be used to restart a particular phase to avoid redundant computation manually. If not used, MitoSeg will execute all phases in order. |
 | `--cores` | Specifies the number of CPU cores that work in collaboration to speed up the process. |
-| `--settings-file <file path>` | Specifies the path of a YAML file containing custom segmentation variables. |
+| `--settings-file <file path>` | Specifies the path of a YAML file containing custom segmentation variables. Details can be found [here](https://github.com/fstasel/mitoseg/wiki/Setting-file-description). |
 
 ## Examples
 
@@ -76,6 +76,8 @@ MitoSeg can be compiled with:
 
 ## Launching Graphical User Interface
 MitoSeg also includes a simple graphical user interface (GUI) developed using the Python Tkinter library. After building MitoSeg, the GUI can be launched by executing `mitoseg-gui.py` from the build directory.
+
+![mitoseg_screenshot](https://github.com/user-attachments/assets/8bc3726f-cbe8-420b-8075-69504537a38c)
 
 ## Running MitoSeg as a Docker Application
 MitoSeg can also be used within a [Docker](https://www.docker.com/) environment, which eliminates the need to prepare the building environment on your computer, and allows MitoSeg to run on various operating systems easily. A sample Dockerfile is provided under the `docker` directory, which can be used for building a Docker image by executing the following command within the `docker` directory:

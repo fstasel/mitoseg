@@ -213,7 +213,7 @@ int main(int argc, char **argv) {
 
     if (!(zrangeSet && psizeSet && fnameSet)) {
         cout << "The options --zrange, --psize and <filename pattern> are "
-                "mandatory input."
+                "mandatory inputs."
              << endl;
         return 1;
     }

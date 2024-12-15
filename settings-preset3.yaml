@@ -21,7 +21,6 @@
     FC_XYSTEP: 1
     FC_HRANGE: 2
     FC_HSTEP: 1
-    FC_TOL: 0.01
     LE_BINS: 4
 
     ## Low frequency curve fit parameters
@@ -78,15 +77,8 @@
     SN25D_LONGTERM_CONV_ITER: 40000
     SN25D_LONGTERM_CONV: 10.0
     SN25D_INF_CONV: 0.95
-    SN25D_ALPHA: 0.0
 
     # ----- [PHASE 3 PARAMETERS] -----
     
     POLY_MERGE: 0.3
     POLY_VALIDITY: 0.75
-
-    ## Visualizer Parameters
-    MAXIMAGES: 150
-    MAXBUFFER: 150
-    WINDOW_WIDTH: 720
-    WINDOW_HEIGHT: 720

@@ -18,6 +18,10 @@ To compile and use MitoSeg, development files for OpenCV4, Boost, and yaml-cpp m
 
     apt install libopencv-dev libboost-dev libboost-program-options-dev libyaml-cpp-dev
 
+Optionally, Python Tkinter is needed for launching graphical user interface:
+
+    apt install python3-tk
+
 Please refer to respective user guides for other GNU/Linux distributions or operating systems.
 
 MitoSeg can be compiled with:
@@ -68,6 +72,10 @@ MitoSeg can be compiled with:
 - Load custom settings from settings.yaml, process the files slice0020.bmp to slice0080.bmp, assuming the pixel size is 2.1nm, and save the results in the outputs directory:
 
       ./mitoseg --settings-file settings.yaml --dst outputs --zrange 20 80 --psize 2.1 slice00%d.bmp
+
+
+## Launching Graphical User Interface
+MitoSeg also includes a simple graphical user interface (GUI) developed using the Python Tkinter library. After building MitoSeg, the GUI can be launched by executing `mitoseg-gui.py` from the build directory.
 
 ## Running MitoSeg as a Docker Application
 MitoSeg can also be used within a [Docker](https://www.docker.com/) environment, which eliminates the need to prepare the building environment on your computer, and allows MitoSeg to run on various operating systems easily. A sample Dockerfile is provided under the `docker` directory, which can be used for building a Docker image by executing the following command within the `docker` directory:

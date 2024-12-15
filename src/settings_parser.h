@@ -38,7 +38,6 @@ namespace mitoseg_settings {
     extern int FC_XYSTEP;
     extern int FC_HRANGE;
     extern int FC_HSTEP;
-    extern double FC_TOL;
     extern int LE_BINS;
 
     // Phase 1 - Low frequency curve fit parameters
@@ -120,7 +119,6 @@ namespace mitoseg_settings {
     extern double SN25D_INF_CONV;
     extern double SN25D_INITPTS_EPS;
     extern double SN25D_INITPTS_MIN;
-    extern double SN25D_ALPHA;
 
     // Phase 3
     extern double POLY_VALIDITY;

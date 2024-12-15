@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-import glob
 import multiprocessing
 import subprocess
 import tkinter as tk
@@ -25,14 +24,15 @@ def run_binary():
         else:
             return
 
-    command = [
-        './mitoseg', '--zrange',
-        str(zrange_start.get()),
-        str(zrange_end.get()), '--psize',
-        str(psize.get())
-    ]
+    command = ['./mitoseg']
 
-    if pattern.get() != '':
+    if zrange_start.get() and zrange_end.get():
+        command.extend(['--zrange', zrange_start.get(), zrange_end.get()])
+
+    if psize.get():
+        command.extend(['--psize', psize.get()])
+
+    if pattern.get():
         command.extend(['--pattern', pattern.get()])
 
     if roi_mode.get() == 'manual':
@@ -58,7 +58,7 @@ def run_binary():
         command.extend(['--thick', thick.get()])
     if cores.get():
         command.extend(['--cores', str(cores.get())])
-    if settings_file.get() and settings_file.get() != 'None':
+    if settings_file.get():
         command.extend(['--settings-file', settings_file.get()])
 
     text_box.delete('1.0', tk.END)
@@ -103,6 +103,15 @@ def browse_dst():
         dst.set(folder_path)
 
 
+def browse_settings():
+    setting_file_path = filedialog.askopenfilename(initialdir='.',
+                                                   filetypes=[('YAML files',
+                                                               '*.yml *.yaml')
+                                                              ])
+    if setting_file_path:
+        settings_file.set(setting_file_path)
+
+
 def toggle_thick_entry():
     if thick_full.get():
         thick_entry.config(state='disabled')
@@ -125,19 +134,19 @@ mandatory_frame.grid_columnconfigure(1, weight=1)
 
 zrange_start_label = tk.Label(mandatory_frame, text='Z-range start:')
 zrange_start_label.grid(row=0, column=0, padx=5, pady=5, sticky='w')
-zrange_start = tk.IntVar(value=35)
+zrange_start = tk.StringVar(value='35')
 zrange_start_entry = tk.Entry(mandatory_frame, textvariable=zrange_start)
 zrange_start_entry.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
 
 zrange_end_label = tk.Label(mandatory_frame, text='Z-range end:')
 zrange_end_label.grid(row=1, column=0, padx=5, pady=5, sticky='w')
-zrange_end = tk.IntVar(value=74)
+zrange_end = tk.StringVar(value='74')
 zrange_end_entry = tk.Entry(mandatory_frame, textvariable=zrange_end)
 zrange_end_entry.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
 
 psize_label = tk.Label(mandatory_frame, text='Pixel size (px/nm):')
 psize_label.grid(row=2, column=0, padx=5, pady=5, sticky='w')
-psize = tk.DoubleVar(value=2.2)
+psize = tk.StringVar(value='2.2')
 psize_entry = tk.Entry(mandatory_frame, textvariable=psize)
 psize_entry.grid(row=2, column=1, padx=5, pady=5, sticky='ew')
 
@@ -251,18 +260,13 @@ cores_entry.grid(row=5, column=1, columnspan=2, padx=5, pady=5, sticky='ew')
 
 settings_file_label = tk.Label(optional_frame, text='Settings file:')
 settings_file_label.grid(row=6, column=0, padx=5, pady=5, sticky='w')
-settings_file = tk.StringVar(value='None')
-settings_files = ['None'] + sorted(glob.glob('../*.yaml'))
-settings_file_entry = ttk.Combobox(optional_frame,
-                                   textvariable=settings_file,
-                                   values=settings_files,
-                                   state='readonly')
-settings_file_entry.grid(row=6,
-                         column=1,
-                         columnspan=2,
-                         padx=5,
-                         pady=5,
-                         sticky='ew')
+settings_file = tk.StringVar()
+settings_file_entry = tk.Entry(optional_frame, textvariable=settings_file)
+settings_file_entry.grid(row=6, column=1, padx=5, pady=5, sticky='ew')
+settings_file_button = tk.Button(optional_frame,
+                                 text='Browse...',
+                                 command=browse_settings)
+settings_file_button.grid(row=6, column=2, padx=5, pady=5, sticky='ew')
 
 output_frame = tk.LabelFrame(root, text='Output')
 output_frame.grid(row=1,

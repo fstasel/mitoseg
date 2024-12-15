@@ -36,7 +36,6 @@ namespace mitoseg_settings {
     int FC_XYSTEP = 1;
     int FC_HRANGE = 2;
     int FC_HSTEP = 1;
-    double FC_TOL = 0.01;
     int LE_BINS = 4;
 
     // Phase 1 - Low frequency curve fit parameters
@@ -122,7 +121,6 @@ namespace mitoseg_settings {
     double SN25D_INF_CONV = 0.95;
     double SN25D_INITPTS_EPS = ((100 / TFACTOR) / LE_SSIZE_LO);
     double SN25D_INITPTS_MIN = ((int)(1.5 * sn25d_t));
-    double SN25D_ALPHA = 0.0;
 
     // Phase 3 parameters
     double POLY_VALIDITY = 0.75;
@@ -142,8 +140,8 @@ namespace mitoseg_settings {
             return false;
         }
 
-        if (settings["numCores"])
-            numCores = settings["numCores"].as<int>();
+        if (settings["NUM_CORES"])
+            numCores = settings["NUM_CORES"].as<int>();
         if (settings["THREAD_STACK_SIZE"])
             THREAD_STACK_SIZE = settings["THREAD_STACK_SIZE"].as<int>();
         if (settings["VISUAL_LE_SSIZE"])
@@ -170,8 +168,6 @@ namespace mitoseg_settings {
             FC_HRANGE = settings["FC_HRANGE"].as<int>();
         if (settings["FC_HSTEP"])
             FC_HSTEP = settings["FC_HSTEP"].as<int>();
-        if (settings["FC_TOL"])
-            FC_TOL = settings["FC_TOL"].as<double>();
         if (settings["LE_BINS"])
             LE_BINS = settings["LE_BINS"].as<int>();
         LE_SSIZE_LO = 4 / TFACTOR;
@@ -299,9 +295,6 @@ namespace mitoseg_settings {
             WINDOW_WIDTH = settings["WINDOW_WIDTH"].as<int>();
         if (settings["WINDOW_HEIGHT"])
             WINDOW_HEIGHT = settings["WINDOW_HEIGHT"].as<int>();
-
-        if (settings["SN25D_ALPHA"])
-            SN25D_ALPHA = settings["SN25D_ALPHA"].as<double>();
 
         return true;
     }

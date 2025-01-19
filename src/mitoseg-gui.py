@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 
 import multiprocessing
+import os
+import platform
 import subprocess
 import tkinter as tk
 from threading import Thread
@@ -21,64 +23,122 @@ def run_binary():
         if response:
             process.terminate()
             process.wait()
+            if exec_mode.get() == 'docker':
+                stop_command = ['docker', 'stop', 'mitoseg_container']
+                subprocess.run(stop_command)
         else:
             return
 
-    command = ['./mitoseg']
+    if exec_mode.get() == 'native':
+        command = ['./mitoseg']
 
-    if zrange_start.get() and zrange_end.get():
-        command.extend(['--zrange', zrange_start.get(), zrange_end.get()])
+        if zrange_start.get() and zrange_end.get():
+            command.extend(['--zrange', zrange_start.get(), zrange_end.get()])
 
-    if psize.get():
-        command.extend(['--psize', psize.get()])
+        if psize.get():
+            command.extend(['--psize', psize.get()])
 
-    if pattern.get():
-        command.extend(['--pattern', pattern.get()])
+        if pattern.get():
+            command.extend(['--pattern', pattern.get()])
 
-    if roi_mode.get() == 'manual':
-        command.extend([
-            '--roi',
-            str(roi_x.get()),
-            str(roi_y.get()),
-            str(roi_w.get()),
-            str(roi_h.get())
-        ])
+        if roi_mode.get() == 'manual':
+            command.extend([
+                '--roi',
+                str(roi_x.get()),
+                str(roi_y.get()),
+                str(roi_w.get()),
+                str(roi_h.get())
+            ])
 
-    if src.get():
-        command.extend(['--src', src.get()])
-    if dst.get():
-        command.extend(['--dst', dst.get()])
-    if phase.get() != 'All':
-        command.extend(['--phase', phase.get()])
-    if valid.get():
-        command.extend(['--valid', valid.get()])
-    if thick_full.get():
-        command.extend(['--thick', 'full'])
-    elif thick.get():
-        command.extend(['--thick', thick.get()])
-    if cores.get():
-        command.extend(['--cores', str(cores.get())])
-    if settings_file.get():
-        command.extend(['--settings-file', settings_file.get()])
+        if src.get():
+            command.extend(['--src', src.get()])
+        if dst.get():
+            command.extend(['--dst', dst.get()])
+        if phase.get() != 'All':
+            command.extend(['--phase', phase.get()])
+        if valid.get():
+            command.extend(['--valid', valid.get()])
+        if thick_full.get():
+            command.extend(['--thick', 'full'])
+        elif thick.get():
+            command.extend(['--thick', thick.get()])
+        if cores.get():
+            command.extend(['--cores', str(cores.get())])
+        if settings_file.get():
+            command.extend(['--settings-file', settings_file.get()])
+    elif exec_mode.get() == 'docker':
+        command = ['docker', 'run', '--name', 'mitoseg_container', '--rm']
+
+        if src.get():
+            command.extend(['-v', f'{src.get()}:/app/data/src'])
+
+        if dst.get():
+            command.extend(['-v', f'{dst.get()}:/app/data/output'])
+
+        if settings_file.get():
+            command.extend(
+                ['-v', f'{settings_file.get()}:/app/data/settings.yaml'])
+
+        command.extend(['mitoseg'])
+
+        if zrange_start.get() and zrange_end.get():
+            command.extend(['--zrange', zrange_start.get(), zrange_end.get()])
+
+        if psize.get():
+            command.extend(['--psize', psize.get()])
+
+        if pattern.get():
+            command.extend(['--pattern', pattern.get()])
+
+        if roi_mode.get() == 'manual':
+            command.extend([
+                '--roi',
+                str(roi_x.get()),
+                str(roi_y.get()),
+                str(roi_w.get()),
+                str(roi_h.get())
+            ])
+
+        if phase.get() != 'All':
+            command.extend(['--phase', phase.get()])
+        if valid.get():
+            command.extend(['--valid', valid.get()])
+        if thick_full.get():
+            command.extend(['--thick', 'full'])
+        elif thick.get():
+            command.extend(['--thick', thick.get()])
+        if cores.get():
+            command.extend(['--cores', str(cores.get())])
 
     text_box.delete('1.0', tk.END)
 
-    process = subprocess.Popen(command,
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE,
-                               text=True)
+    try:
+        process = None
+        process = subprocess.Popen(command,
+                                   stdout=subprocess.PIPE,
+                                   stderr=subprocess.PIPE,
+                                   text=True)
+    except:
+        messagebox.showerror('Error', f'Cannot execute {command[0]}')
 
     def read_output():
-        for line in process.stdout:
-            text_box.insert(tk.END, line)
-            text_box.see(tk.END)
-        for line in process.stderr:
-            text_box.insert(tk.END, line)
-            text_box.see(tk.END)
-        process.wait()
+        if process:
+            for line in process.stdout:
+                text_box.insert(tk.END, line)
+                text_box.see(tk.END)
+            for line in process.stderr:
+                text_box.insert(tk.END, line)
+                text_box.see(tk.END)
+            process.wait()
 
-        if process.returncode == 0 and dst.get():
-            subprocess.run(['xdg-open', dst.get()])
+            if process.returncode == 0 and dst.get():
+                mitoseg_platform = platform.system()
+                if mitoseg_platform == 'Linux':
+                    subprocess.run(['xdg-open', dst.get()])
+                elif mitoseg_platform == 'Darwin':
+                    subprocess.run(['open', dst.get()])
+                elif mitoseg_platform == 'Windows':
+                    os.startfile(dst.get())
 
     Thread(target=read_output, daemon=True).start()
 
@@ -267,6 +327,24 @@ settings_file_button = tk.Button(optional_frame,
                                  text='Browse...',
                                  command=browse_settings)
 settings_file_button.grid(row=6, column=2, padx=5, pady=5, sticky='ew')
+
+executable_frame = tk.LabelFrame(right_frame, text='Execution Method')
+executable_frame.pack(fill='x', padx=5, pady=5)
+executable_frame.grid_columnconfigure(1, weight=1)
+
+exec_mode = tk.StringVar(value='native')
+
+exec_native_radio = tk.Radiobutton(executable_frame,
+                                   text='Native',
+                                   variable=exec_mode,
+                                   value='native')
+exec_native_radio.grid(row=0, column=0, padx=5, pady=5, sticky='w')
+
+exec_docker_radio = tk.Radiobutton(executable_frame,
+                                   text='Docker',
+                                   variable=exec_mode,
+                                   value='docker')
+exec_docker_radio.grid(row=0, column=1, padx=5, pady=5, sticky='w')
 
 output_frame = tk.LabelFrame(root, text='Output')
 output_frame.grid(row=1,

@@ -74,14 +74,16 @@ MitoSeg can be compiled with:
       ./mitoseg --settings-file settings.yaml --dst outputs --zrange 20 80 --psize 2.1 slice00%d.bmp
 
 
-## Launching Graphical User Interface
-MitoSeg also includes a simple graphical user interface (GUI) developed using the Python Tkinter library. After building MitoSeg, the GUI can be launched by executing `mitoseg-gui.py` from the build directory.
-
-![mitoseg_screenshot](https://github.com/user-attachments/assets/8bc3726f-cbe8-420b-8075-69504537a38c)
-
 ## Running MitoSeg as a Docker Application
 MitoSeg can also be used within a [Docker](https://www.docker.com/) environment, which eliminates the need to prepare the building environment on your computer, and allows MitoSeg to run on various operating systems easily. A sample Dockerfile is provided under the `docker` directory, which can be used for building a Docker image by executing the following command within the `docker` directory:
 
     docker build -t mitoseg .
 
 After the image is built, it can be run by executing the provided `docker-mitoseg.sh` (for Linux/Mac) or `docker-mitoseg.cmd` (for Windows) scripts. These scripts include instructions and guidelines, and can be modified according to specific needs.
+
+## Launching Graphical User Interface
+MitoSeg also includes a simple graphical user interface (GUI) developed using the Python Tkinter library. After building MitoSeg, the GUI can be launched by executing `mitoseg-gui.py` from the build directory.
+
+![mitoseg_screenshot](https://github.com/user-attachments/assets/78548a40-d65b-4c36-ac2f-3d32459651cc)
+
+Prior to using the graphical interface, ensure that MitoSeg is properly set up. To execute MitoSeg natively, compile it as explained in [Setup](#setup). For Docker execution, create a MitoSeg image as described in [Running MitoSeg as a Docker Application](#running-mitoseg-as-a-docker-application).
